@@ -6,8 +6,8 @@ wrapdocker
 cd $(dirname $0)/
 ls
 cd ./Server
-docker build -t nodeservercont .
-docker run --name=nodeservercont -p 8000:8000 -d nodeservercont
+docker build -t nodeserver .
+docker run --name=nodeserver -p 8000:8000 -d nodeserver
 docker images
 count=0
 while sleep 10
