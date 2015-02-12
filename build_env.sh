@@ -14,10 +14,10 @@ function node_server(){
 #the magic to determine if cattle server needs to be run restarted or rebuilt.
     if [[ $(docker inspect nodeservercont | jq -r .[0].Name) != "/nodeservercont" ]]; then
         docker rm -fv nodeservercont | echo > /dev/null
-        docker create -v ~/sandbox/nodeservercont:/var/lib/docker --privileged -p 8000:8000 --name=nodeservercont nodeservercont
+        docker create -d -v ~/sandbox/nodeservercont:/var/lib/docker --privileged -p 8000:8000 --name=nodeservercont nodeservercont
     else
         docker rm -fv nodeservercont | echo > /dev/null
-        docker create -v ~/sandbox/nodeservercont:/var/lib/docker --privileged -p 8000:8000 --name=nodeservercont nodeservercont
+        docker create -d -v ~/sandbox/nodeservercont:/var/lib/docker --privileged -p 8000:8000 --name=nodeservercont nodeservercont
     fi
 }
 
@@ -25,7 +25,7 @@ function create_clients(){
     for i in {1..3}
     do
         docker rm -vf clientwrapper$i  | echo > /dev/null
-        docker create -e HOSTNAME=clientwrapper$i --privileged -v ~/sandbox/clientwrapper$i:/var/lib/docker --link=nodeservercont:server --name=clientwrapper$i clientwrapper
+        docker create -d -e HOSTNAME=clientwrapper$i --privileged -v ~/sandbox/clientwrapper$i:/var/lib/docker --link=nodeservercont:server --name=clientwrapper$i clientwrapper
     done
 }
 
