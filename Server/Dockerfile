@@ -1,7 +1,7 @@
 FROM node:latest
 
-ADD ./server.js /source/server.js
+COPY ./ /source/
 
 EXPOSE 8000
 
-CMD node /source/server.js
+CMD [ "node /source/server.js" ]

@@ -14,31 +14,31 @@ function node_server(){
 #the magic to determine if cattle server needs to be run restarted or rebuilt.
     if [[ $(docker inspect nodeservercont | jq -r .[0].Name) != "/nodeservercont" ]]; then
         docker rm -fv nodeservercont | echo > /dev/null
-        docker create --privileged -v /var/lib/docker:/var/lib/docker -p 8000:8000 --name=nodeservercont nodeservercont
+        docker create -v ~/sandbox/nodeservercont:/var/lib/docker --privileged -p 8000:8000 --name=nodeservercont nodeservercont
     else
         docker rm -fv nodeservercont | echo > /dev/null
-        docker create --privileged -v /var/lib/docker:/var/lib/docker -p 8000:8000 --name=nodeservercont nodeservercont
+        docker create -v ~/sandbox/nodeservercont:/var/lib/docker --privileged -p 8000:8000 --name=nodeservercont nodeservercont
     fi
 }
 
 function create_clients(){
     for i in {1..3}
     do
-        docker rm -vf nodeclient$i  | echo > /dev/null
-        docker create -e HOSTNAME=nodeclient$i --link=nodeservercont:server --name=nodeclient$i nodeclient
+        docker rm -vf clientwrapper$i  | echo > /dev/null
+        docker create -e HOSTNAME=clientwrapper$i --privileged -v ~/sandbox/clientwrapper$i:/var/lib/docker --link=nodeservercont:server --name=clientwrapper$i clientwrapper
     done
 }
 
 function start_stuff(){
     docker restart nodeservercont
-    docker restart nodeclient1 nodeclient2 nodeclient3
+    docker restart clientwrapper1 clientwrapper2 clientwrapper3
     
 }
 
 cd $(dirname $0)
 docker build -t nodeservercont .
-cd client/
-docker build -t nodeclient .
+cd wrapper/
+docker build -t clientwrapper .
 node_server
 create_clients
 start_stuff
