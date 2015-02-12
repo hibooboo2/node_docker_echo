@@ -1,6 +1,6 @@
 FROM node:latest
 
-ADD ./server.js /source/server.js
+ADD ./ /source/
 
 EXPOSE 8000
 

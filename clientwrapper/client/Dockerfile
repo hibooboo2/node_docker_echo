@@ -1,5 +1,5 @@
 FROM node:latest
 
-COPY ./client.sh /source/client.sh
+COPY ./ /source/
 
-CMD /source/client.sh
+CMD /source/
