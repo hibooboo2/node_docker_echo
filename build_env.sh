@@ -36,9 +36,12 @@ function start_stuff(){
 }
 
 cd $(dirname $0)
+cd serverwrapper/
 docker build -t nodeservercont .
+cd ..
 cd wrapper/
 docker build -t clientwrapper .
+cd ..
 node_server
 create_clients
 start_stuff
