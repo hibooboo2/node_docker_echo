@@ -3,9 +3,7 @@
 #set -e
 
 wrapdocker
-cd $(dirname $0)/
-ls
-cd ./server
+cd /source/server
 docker build -t nodeserver .
 docker run  -d --net=host --name=nodeserver -d nodeserver
 while sleep 10
