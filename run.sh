@@ -7,7 +7,7 @@ cd $(dirname $0)/
 ls
 cd ./Server
 docker build -t nodeserver .
-docker run --name=nodeserver -p 8000:8000 -d nodeserver
+docker run --net=host --name=nodeserver -p 8000:8000 -d nodeserver
 docker images
 count=0
 while sleep 10
