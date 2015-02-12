@@ -1,6 +1,6 @@
 FROM node:latest
 
-COPY ./ /source/
+COPY ./server.js /source/server.js
 
 EXPOSE 8000
 
