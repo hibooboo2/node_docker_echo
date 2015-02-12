@@ -39,7 +39,7 @@ cd $(dirname $0)
 cd serverwrapper/
 docker build -t nodeservercont .
 cd ..
-cd wrapper/
+cd clientwrapper/
 docker build -t clientwrapper .
 cd ..
 node_server
