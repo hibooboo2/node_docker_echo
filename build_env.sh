@@ -3,7 +3,7 @@
 set -e
 
 wrapdocker
-docker rm -fv $(docker ps -qa)
+docker rm -fv $(docker ps -qa) | echo > /dev/null
 CMDS="docker"
 
 for i in $CMDS
