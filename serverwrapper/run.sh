@@ -5,9 +5,9 @@
 wrapdocker
 cd $(dirname $0)/
 ls
-cd ./Server
+cd ./server
 docker build -t nodeserver .
-docker run  -d --net=host --name=nodeserver -p 8000:8000 -d nodeserver
+docker run  -d --net=host --name=nodeserver -d nodeserver
 while sleep 10
 do
     docker logs -f nodeserver
