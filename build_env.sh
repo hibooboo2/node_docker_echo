@@ -16,10 +16,10 @@ function node_server(){
 #the magic to determine if cattle server needs to be run restarted or rebuilt.
     if [[ $(docker inspect nodeservercont | jq -r .[0].Name) != "/nodeservercont" ]]; then
         docker rm -fv nodeservercont | echo > /dev/null
-        docker create -v /var/tmp/madnesscont/servercont:/var/lib/docker --privileged -p 8000:8000 --name=nodeservercont nodeservercont
+        docker create -v /var/tmp/madnesscont/servercont:/var/lib/docker --privileged --name=nodeservercont nodeservercont
     else
         docker rm -fv nodeservercont | echo > /dev/null
-        docker create -v /var/tmp/madnesscont/servercont:/var/lib/docker --privileged -p 8000:8000 --name=nodeservercont nodeservercont
+        docker create -v /var/tmp/madnesscont/servercont:/var/lib/docker --privileged --name=nodeservercont nodeservercont
     fi
 }
 
