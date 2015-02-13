@@ -44,3 +44,10 @@ docker build -t clientwrapper .
 node_server
 create_clients
 start_stuff
+
+count=0
+while sleep 10
+do
+    echo Up Count $count
+    count=$(($count + 1))
+done
