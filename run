@@ -2,4 +2,5 @@
 
 docker rm -fv madness
 docker build -t master-environment .
-docker run -it --rm -v /var/tmp/madnesscont/:/var/tmp/madnesscont -v /var/tmp/madnesscont/docker:/var/lib/docker --privileged --name=madness master-environment
+docker run  -d -v /var/tmp/madnesscont/:/var/tmp/madnesscont -v /var/tmp/madnesscont/docker:/var/lib/docker --privileged --name=madness master-environment
+docker logs -f madness
